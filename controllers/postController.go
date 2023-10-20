@@ -23,6 +23,31 @@ func PostsCreate(c *gin.Context) {
 		return
 	}
 
+	//return nya
+	c.JSON(200, gin.H{
+		"post": post,
+	})
+}
+
+func PostsIndex(c *gin.Context) {
+	//get all posts
+	var posts []models.Post
+	initializers.DB.Find(&posts)
+
+	//send respond
+	c.JSON(200, gin.H{
+		"post": posts,
+	})
+}
+
+func PostsFind(c *gin.Context) {
+	//get id from url
+	id := c.Param("id")
+	//find a posts by id
+	var post models.Post
+	initializers.DB.First(&post, id)
+
+	//send respond
 	c.JSON(200, gin.H{
 		"post": post,
 	})
